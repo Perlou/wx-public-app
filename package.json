@@ -1,0 +1,28 @@
+{
+  "name": "wx-public-app",
+  "version": "1.0.0",
+  "description": "wx public",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Perlou/wx-public-app.git"
+  },
+  "keywords": [
+    "wx",
+    "public"
+  ],
+  "author": "Perlou",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Perlou/wx-public-app/issues"
+  },
+  "homepage": "https://github.com/Perlou/wx-public-app#readme",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "koa": "^1.2.0",
+    "sha1": "^1.1.1"
+  }
+}
