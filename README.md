@@ -1,2 +1,2 @@
 # wx-public-app
-个人微信公众号小应用
+基于nodeJs,Koa,express框架开发的微信公众号小应用
