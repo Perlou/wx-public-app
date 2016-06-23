@@ -8,6 +8,7 @@
 
 var Promise = require('bluebird');
 var xml2js = require('xml2js');
+var tpl = require('./tpl');
 
 /**
  * 将xml转换成json
@@ -69,3 +70,24 @@ function formatMessage(result){
 }
 
 exports.formatMessage = formatMessage;
+
+exports.tpl = function(content, message){
+	var info = {},
+		type = 'text',
+		fromUserName = message.FromUserName,
+		toUserName = message.toUserName;
+
+	if(Array.isArray(content)){
+		type = 'news';
+	}	
+
+	type = content.type;
+	info.content = content;
+	info.createTime = new Date().getTime();
+	info.msgType = type;
+	info.fromUserName = fromUserName;
+	info.toUserName = toUserName;
+
+	return tpl.compiled(info);
+};
+

@@ -8,6 +8,8 @@
 
 var Promise = require('bluebird');
 var request = Promise.promisify(require('request'));
+var utils = require('./utils');
+
 var urlPrefix = 'https://api.weixin.qq.com/cgi-bin/';
 var api = {
 	accessToken: urlPrefix + 'token?grant_type=client_credential'
@@ -50,6 +52,9 @@ function Wechat(opts){
 
 }
 
+/**
+ * 判断access_token是否合法的原型方法
+ */
 Wechat.prototype.isVaildAccessToken = function(data){
 
 	if(!data || !data.access_token || !data.expires_in){
@@ -69,6 +74,9 @@ Wechat.prototype.isVaildAccessToken = function(data){
 
 };
 
+/**
+ * 更新access_token的原型方法
+ */
 Wechat.prototype.updateAccessToken = function(){
 
 	var that = this,
@@ -89,6 +97,21 @@ Wechat.prototype.updateAccessToken = function(){
 		});		
 	});
 
+};
+
+/**
+ * 自动回复的原型方法
+ */
+Wechat.prototype.reply = function(){
+
+	var that = this,
+		content = this.body,
+		message = this.weixin,
+		xml = utils.tpl(content, message);
+
+	this.status = 200;
+	this.type = 'application/xml';
+	this.body = xml;	
 };
 
 module.exports = Wechat;

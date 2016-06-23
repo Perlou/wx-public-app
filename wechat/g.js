@@ -18,7 +18,6 @@ var utils = require('./utils');
 //  <CreateTime>1348831860</CreateTime>
 //  <MsgType><![CDATA[text]]></MsgType>
 //  <Content><![CDATA[this is a test]]></Content>
-//  <MsgId>1234567890123456</MsgId>
 // </xml>
 
 module.exports = function(opts){
@@ -54,25 +53,29 @@ module.exports = function(opts){
 			var content = yield utils.parseXMLAsync(data);
 			var message = utils.formatMessage(content.xml);
 
-			if(message.MsgType === 'event'){
-				if(message.Event === 'subscribe'){
-					var now = new Date().getTime();
+			this.weixin = message;
 
-					that.status = 200;
-					that.type = 'application/xml';
-					that.body = '<xml>'+
-								 '<ToUserName><![CDATA['+ message.FromUserName +']]></ToUserName>' +
-								 '<FromUserName><![CDATA['+ message.ToUserName +']]></FromUserName>' +
-								 '<CreateTime>'+ now +'</CreateTime>' +
-								 '<MsgType><![CDATA[text]]></MsgType>' +
-								 '<Content><![CDATA[朱小郯童鞋泥嚎！]]></Content>' +
-								 '<MsgId>1234567890123456</MsgId>' +
-								'</xml>';
-					console.log(that.body);
-					console.log(message);			
-					return;			
-				}
-			}
+			yield handler.call(this, next);
+
+			wechat.reply.call(this);
+
+			// if(message.MsgType === 'event'){
+			// 	if(message.Event === 'subscribe'){
+			// 		var now = new Date().getTime();
+
+			// 		that.status = 200;
+			// 		that.type = 'application/xml';
+			// 		that.body = '<xml>'+
+			// 					 '<ToUserName><![CDATA['+ message.FromUserName +']]></ToUserName>' +
+			// 					 '<FromUserName><![CDATA['+ message.ToUserName +']]></FromUserName>' +
+			// 					 '<CreateTime>'+ now +'</CreateTime>' +
+			// 					 '<MsgType><![CDATA[text]]></MsgType>' +
+			// 					 '<Content><![CDATA[朱小郯童鞋泥嚎！]]></Content>' +
+			// 					 '<MsgId>1234567890123456</MsgId>' +
+			// 					'</xml>';		
+			// 		return;			
+			// 	}
+			// }
 		}
 	
 	};
