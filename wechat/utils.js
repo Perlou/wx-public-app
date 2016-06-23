@@ -81,13 +81,13 @@ exports.tpl = function(content, message){
 		type = 'news';
 	}	
 
-	type = content.type;
+	type = content.type || type;
 	info.content = content;
 	info.createTime = new Date().getTime();
 	info.msgType = type;
-	info.fromUserName = fromUserName;
-	info.toUserName = toUserName;
-
+	info.toUserName = fromUserName;
+	info.fromUserName = toUserName;
+	
 	return tpl.compiled(info);
 };
 
